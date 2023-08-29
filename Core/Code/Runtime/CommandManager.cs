@@ -187,7 +187,7 @@ namespace UFlow.Addon.CommandConsole.Runtime
 
             if (!manager.TryGetPossibleMethods(command, out List<MethodInfo> possibleMethods, false))
             {
-                manager.Log($"No command found with name '{command},' to see a list of all commands use 'list.'", 
+                manager.Log($"No command found with name '{command}', to see a list of all commands use 'list'.", 
                     LogMessageType.Error);
                 return;
             }
@@ -201,7 +201,7 @@ namespace UFlow.Addon.CommandConsole.Runtime
                     helpString += $"{commandAttribute.description}\n\t{command} {commandAttribute.prototype}";
                 else if (commandAttribute.hasPrototype && !commandAttribute.hasDescription)
                     helpString += $"\t{command} {commandAttribute.prototype}";
-                else if (commandAttribute.hasDescription && !commandAttribute.hasPrototype)
+                else if (!commandAttribute.hasPrototype && commandAttribute.hasDescription)
                     helpString += $"{commandAttribute.description}";
                 else
                     continue;
@@ -211,13 +211,13 @@ namespace UFlow.Addon.CommandConsole.Runtime
             }
 
             if (helpString == string.Empty)
-                helpString = $"There is no help page created for '{command}.'";
+                helpString = $"There is no help page created for '{command}'.";
 
             manager.Log(helpString);
         }
 
         [UsedImplicitly]    
-        [Command("help")]
+        [Command("help", "Provides help information for the 'help' command.")]
         private static void HelpCommand(CommandManager manager)
         {
             HelpCommand("help", manager);
