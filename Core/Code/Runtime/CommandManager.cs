@@ -34,6 +34,7 @@ namespace UFlow.Addon.CommandConsole.Runtime
             foreach (Type type in GetAllTypesAssignableFrom<IParser>(assemblyNames))
             {
                 IParser parser = (IParser) Activator.CreateInstance(type);
+                if (m_parsers.ContainsKey(parser.Type)) continue;
                 m_parsers.Add(parser.Type, parser);
             }
         }
